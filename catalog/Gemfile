@@ -1,0 +1,7 @@
+source :rubygems
+
+gem 'sqlite3'
+gem 'nokogiri'
+gem 'shoulda'
+gem 'shoulda-context'
+gem 'test-unit'
