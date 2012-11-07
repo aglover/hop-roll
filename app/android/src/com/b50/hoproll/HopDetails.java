@@ -1,4 +1,6 @@
-package com.ag.hops;
+package com.b50.hoproll;
+
+import com.b50.hoproll.R;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -30,13 +32,13 @@ public class HopDetails extends Activity {
             hopName.setText(cursor.getString(cursor.getColumnIndex("name")));
             
             hopAlpha = (TextView) findViewById(R.id.alpha);
-            hopAlpha.setText(cursor.getString(cursor.getColumnIndex("alpha_acid")));
+            hopAlpha.setText("Alpha acid: " + cursor.getString(cursor.getColumnIndex("alpha_acid")) + "%");
             
             hopDesc = (TextView) findViewById(R.id.description);
             hopDesc.setText(cursor.getString(cursor.getColumnIndex("description")));
             
             hopSubs = (TextView) findViewById(R.id.substitutions);
-            hopSubs.setText(cursor.getString(cursor.getColumnIndex("substitutions")));
+            hopSubs.setText("Possible substitutions: " + cursor.getString(cursor.getColumnIndex("substitutions")));
             //then you can close it
             cursor.close();
         }

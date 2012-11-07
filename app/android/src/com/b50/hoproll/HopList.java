@@ -1,4 +1,6 @@
-package com.ag.hops;
+package com.b50.hoproll;
+
+import com.b50.hoproll.R;
 
 import android.app.Activity;
 import android.content.Intent;
