@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS hops (_id integer PRIMARY KEY AUTOINCREMENT, name TEX
 <statement>INSERT INTO "hops" VALUES(37,'Willamete','A US variety of Fuggles that is stronger with a spicy, woody, and fragrant aroma and finish.  Also spelled Williamette.','','6 to 4')</statement>
 <statement>INSERT INTO "hops" VALUES(38,'Zeus','Aromatic and highly bitter hop.  Very similar to Tomahawk and Columbus.','Columbus','14 to 15')</statement>
 <statement>INSERT INTO "hops" VALUES(39,'Admiral (U.K.)','Known for its bittering potential.','U.K. Target, U.K. Northdown, U.K. Challenger','13.5 to 16')</statement>
-<statement>INSERT INTO "hops" VALUES(40,'Ahtanum','Floral, citrus, sharp, and piney.','','4 to 6.3')</statement>
 <statement>INSERT INTO "hops" VALUES(41,'Bramling Cross (U.K.)','Quite mild, fruity currant aroma.','U.K. Kent Golding, U.K. Progress, Whitbread Golding Variety','5 to 7')</statement>
 <statement>INSERT INTO "hops" VALUES(42,'Brewer''s Gold (German)','Black currant, fruity, spicy.','Northdown, Northern Brewer, Galena, Bullion','6 to 7')</statement>
 <statement>INSERT INTO "hops" VALUES(43,'Challenger (U.K.)','Mild to moderate, quite spicy.','U.S. or German Perle, Northern Brewer','6.5 to 8.5')</statement>

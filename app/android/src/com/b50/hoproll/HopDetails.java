@@ -1,12 +1,9 @@
 package com.b50.hoproll;
 
-import com.b50.hoproll.R;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 public class HopDetails extends Activity {
@@ -25,9 +22,7 @@ public class HopDetails extends Activity {
         SQLiteDatabase db = (new DatabaseHelper(this)).getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM hops WHERE _id = ?", new String[]{Long.valueOf(hopId).toString()});
         if (cursor != null){
-            cursor.moveToFirst();
-            Log.d("hops", "values for name " + cursor.getString(cursor.getColumnIndex("name")));
-            
+            cursor.moveToFirst();           
             hopName = (TextView) findViewById(R.id.hopName);
             hopName.setText(cursor.getString(cursor.getColumnIndex("name")));
             
@@ -39,9 +34,7 @@ public class HopDetails extends Activity {
             
             hopSubs = (TextView) findViewById(R.id.substitutions);
             hopSubs.setText("Possible substitutions: " + cursor.getString(cursor.getColumnIndex("substitutions")));
-            //then you can close it
             cursor.close();
         }
-        Log.d("hops", "done");
 	}
 }

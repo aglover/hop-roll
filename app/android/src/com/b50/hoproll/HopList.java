@@ -19,8 +19,6 @@ public class HopList extends Activity {
 
 	protected EditText searchText;
 	protected SQLiteDatabase db;
-	protected Cursor cursor;
-	protected ListAdapter adapter;
 	protected ListView hopList;
 
 	/** Called when the activity is first created. */
@@ -33,23 +31,32 @@ public class HopList extends Activity {
 		hopList = (ListView) findViewById(R.id.list);
 		hopList.setOnItemClickListener(new OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(parent.getContext(), HopDetails.class);	
-		    	intent.putExtra("hop_id", id);
-		    	startActivity(intent);
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(parent.getContext(),
+						HopDetails.class);
+				intent.putExtra("hop_id", id);
+				startActivity(intent);
 			}
 		});
+
+		ListAdapter adapter = getAdaptorForQuery(
+				"SELECT _id, name, description FROM hops ORDER BY name ASC", null);
+		hopList.setAdapter(adapter);
 	}
 
-	public void search(View view) {
-		// || is the concatenation operation in SQLite
-		// note, _id is required for Android libs
-		cursor = db.rawQuery(
+	private ListAdapter getAdaptorForQuery(String queryString, String[] parameters) {
+		Cursor cursor = db.rawQuery(queryString, parameters);
+		ListAdapter adapter = 
+				new SimpleCursorAdapter(this, R.layout.hop_list_item, cursor, new String[] { "name",
+					"description" }, new int[] { R.id.hopName, R.id.description });
+		return adapter;
+	}
+
+	public void search(View view) {		
+		ListAdapter adapter = getAdaptorForQuery(
 				"SELECT _id, name, description FROM hops WHERE name LIKE ?",
 				new String[] { "%" + searchText.getText().toString() + "%" });
-		adapter = new SimpleCursorAdapter(this, R.layout.hop_list_item, cursor,
-				new String[] { "name", "description" }, new int[] {
-						R.id.hopName, R.id.description });
 		hopList.setAdapter(adapter);
 	}
 
