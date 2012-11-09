@@ -21,7 +21,6 @@ public class HopList extends Activity {
 	protected SQLiteDatabase db;
 	protected ListView hopList;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
