@@ -16,14 +16,14 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="hop name" />
+            android:hint="@string/hop_name_hint" />
 
         <Button
             android:id="@+id/searchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="search"
-            android:text="Search" />
+            android:text="@string/search" />
     </LinearLayout>
 
     <FrameLayout
@@ -34,9 +34,10 @@
 
         <ImageView
             android:id="@+id/widget85"
+            android:contentDescription="@string/content_description"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:src="@drawable/istock_comp_hops_2" />
+            android:src="@drawable/main_background" />
 
         <ListView
             android:id="@+id/list"

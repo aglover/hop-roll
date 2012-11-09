@@ -1,10 +1,7 @@
 package com.b50.hoproll;
 
-import com.b50.hoproll.R;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -30,10 +27,8 @@ public class HopList extends Activity {
 		hopList = (ListView) findViewById(R.id.list);
 		hopList.setOnItemClickListener(new OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Intent intent = new Intent(parent.getContext(),
-						HopDetails.class);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(parent.getContext(), HopDetails.class);
 				intent.putExtra("hop_id", id);
 				startActivity(intent);
 			}
@@ -43,20 +38,20 @@ public class HopList extends Activity {
 				"SELECT _id, name, description FROM hops ORDER BY name ASC", null);
 		hopList.setAdapter(adapter);
 	}
-
-	private ListAdapter getAdaptorForQuery(String queryString, String[] parameters) {
-		Cursor cursor = db.rawQuery(queryString, parameters);
-		ListAdapter adapter = 
-				new SimpleCursorAdapter(this, R.layout.hop_list_item, cursor, new String[] { "name",
-					"description" }, new int[] { R.id.hopName, R.id.description });
-		return adapter;
-	}
-
+	
 	public void search(View view) {		
 		ListAdapter adapter = getAdaptorForQuery(
 				"SELECT _id, name, description FROM hops WHERE name LIKE ?",
 				new String[] { "%" + searchText.getText().toString() + "%" });
 		hopList.setAdapter(adapter);
+	}
+	
+	private ListAdapter getAdaptorForQuery(String queryString, String[] parameters) {
+		return new SimpleCursorAdapter(this, 
+			R.layout.hop_list_item, 
+			db.rawQuery(queryString, parameters), 
+			new String[] { "name", "description" }, 
+			new int[] { R.id.hopName, R.id.description });
 	}
 
 }
