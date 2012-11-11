@@ -44,7 +44,7 @@ class HopDatabaseParseTest < Test::Unit::TestCase
         end
         descrpt = table_row.children[8].text.strip
         alpha = table_row.children[2].text.strip.gsub('%', '')
-        # puts "name is #{name} and sub: #{sub} and desc #{descrpt} and alpha is #{alpha}"
+        # puts "name is #{name} and sytle is #{table_row.children[4].text.strip}"
         assert_not_nil name
         assert_not_nil alpha
         assert_not_nil descrpt
