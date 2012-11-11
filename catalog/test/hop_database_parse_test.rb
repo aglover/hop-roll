@@ -28,7 +28,6 @@ class HopDatabaseParseTest < Test::Unit::TestCase
    
   end
   
-  
   context 'parsing HTML should find table and get each row easily from substitutes website' do
     
     setup do
@@ -49,12 +48,22 @@ class HopDatabaseParseTest < Test::Unit::TestCase
         assert_not_nil alpha
         assert_not_nil descrpt
         assert_not_nil sub
-        
       end
-      
     end
-    
-   
   end
   
+  context 'parsing HTML should find table and get each row easily from type website - note this site is ilformed!' do
+    
+    setup do
+      @doc = Nokogiri::HTML(open('http://beersmith.com/hop-list/'))
+    end
+    
+    should 'handle iterating over a table full of rows' do
+      @doc.xpath('//table/tr').each do | table_row | 
+        name = table_row.children[0].text.strip.squeeze(' ')        
+        type = table_row.children[6].text.strip
+        puts "row name #{name} type: #{type}"
+      end
+    end
+  end
 end

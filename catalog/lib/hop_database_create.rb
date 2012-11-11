@@ -6,7 +6,8 @@ db = SQLite3::Database.new 'hops.db'
 
 rows = db.execute <<-SQL
   CREATE TABLE hops (_id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, 
-  name TEXT, description TEXT, substitutions TEXT, alpha_acid TEXT, beer_styles TEXT);
+  name TEXT, description TEXT, substitutions TEXT DEFAULT '', alpha_acid TEXT DEFAULT '', 
+  beer_styles TEXT DEFAULT '', type TEXT DEFAULT '');
 SQL
 
 doc = Nokogiri::HTML(open('http://www.tasteyourbeer.com/researchcommercialbeers.php'))
@@ -40,3 +41,20 @@ doc.xpath('//table/tbody/tr').each do | table_row |
     end
   end
 end
+
+doc = Nokogiri::HTML(open('http://beersmith.com/hop-list/'))
+doc.xpath('//table/tr').each do | table_row | 
+  name = table_row.children[0].text.strip.squeeze(' ')        
+  type = table_row.children[6].text.strip
+  unless name.eql? 'Name'
+    iname = name.split(' ')[0]
+    stm = db.prepare 'SELECT * FROM hops WHERE name LIKE ?'
+    stm.bind_param 1, "%#{iname}%"
+    rs = stm.execute
+    found = rs.next
+    if found
+      db.execute "UPDATE hops SET type=\"#{type}\" WHERE _id=#{found[0]}"
+    end
+  end
+end
+
