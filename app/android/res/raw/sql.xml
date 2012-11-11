@@ -1,7 +1,5 @@
 <sql>
-<statement>
-CREATE TABLE IF NOT EXISTS hops (_id integer PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, substitutions TEXT, alpha_acid TEXT)
-</statement>
+<statement>CREATE TABLE IF NOT EXISTS hops (_id integer PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, substitutions TEXT, alpha_acid TEXT)</statement>
 <statement>INSERT INTO "hops" VALUES(1,'Amarillo','Spicy hop with mild bitterness and a noble aroma.  Good all around hop.','Cascade, Centennial','7 to 10')</statement>
 <statement>INSERT INTO "hops" VALUES(2,'Athanum','Floral, citrusy, and piney, similar to Cascade.','','5 to 6')</statement>
 <statement>INSERT INTO "hops" VALUES(3,'Brewer''s Gold','Strong and pungent bittering hop developed from Bullion.  Commonly used in English Ales.','Bullion','7 to 9')</statement>

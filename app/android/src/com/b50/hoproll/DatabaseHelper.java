@@ -31,8 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String s;
 		try {
 			InputStream in = context.getResources().openRawResource(R.raw.sql);
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-					.newDocumentBuilder();
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document doc = builder.parse(in, null);
 			NodeList statements = doc.getElementsByTagName("statement");
 			for (int i = 0; i < statements.getLength(); i++) {

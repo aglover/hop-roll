@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hop Catalog</string>
+    <string name="app_name">Hop Roll</string>
     <string name="search">Search</string>
-    <string name="hop_name_hint">hop name</string>
+    <string name="hop_name_hint">Hop name</string>
     <string name="content_description">Beer with Hops</string>
 </resources>
