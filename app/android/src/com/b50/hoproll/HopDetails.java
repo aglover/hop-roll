@@ -17,17 +17,17 @@ public class HopDetails extends Activity {
         Cursor cursor = db.rawQuery("SELECT * FROM hops WHERE _id = ?", new String[]{Long.valueOf(hopId).toString()});
         if (cursor != null){
             cursor.moveToFirst();           
-            TextView hopName = textViewFor(R.id.hopName);
-            hopName.setText(cursor.getString(cursor.getColumnIndex("name")));
+            textViewFor(R.id.hopName).setText(cursor.getString(cursor.getColumnIndex("name")));
+  
+            textViewFor(R.id.alpha).setText("Alpha acid: " + cursor.getString(cursor.getColumnIndex("alpha_acid")) + "%");
             
-            TextView hopAlpha = textViewFor(R.id.alpha);
-            hopAlpha.setText("Alpha acid: " + cursor.getString(cursor.getColumnIndex("alpha_acid")) + "%");
+            textViewFor(R.id.description).setText(cursor.getString(cursor.getColumnIndex("description")));
             
-            TextView hopDesc = textViewFor(R.id.description);
-            hopDesc.setText(cursor.getString(cursor.getColumnIndex("description")));
+            textViewFor(R.id.type).setText("Primary purpose: " + cursor.getString(cursor.getColumnIndex("type")));
             
-            TextView hopSubs = textViewFor(R.id.substitutions);
-            hopSubs.setText("Possible substitutions: " + cursor.getString(cursor.getColumnIndex("substitutions")));
+            textViewFor(R.id.styles).setText("Beer styles: " + cursor.getString(cursor.getColumnIndex("beer_styles")));
+            
+            textViewFor(R.id.substitutions).setText("Possible substitutions: " + cursor.getString(cursor.getColumnIndex("substitutions")));
             cursor.close();
         }
 	}

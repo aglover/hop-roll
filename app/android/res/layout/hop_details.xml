@@ -29,9 +29,27 @@
                 android:layout_marginTop="4dp"
                 android:textColor="#000000"
                 android:textSize="16sp" />
-
+            
+            <TextView
+                android:id="@+id/styles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+            
             <TextView
                 android:id="@+id/alpha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
