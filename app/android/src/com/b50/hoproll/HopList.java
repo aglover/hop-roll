@@ -15,8 +15,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class HopList extends Activity {
-
-	protected EditText searchText;
 	protected SQLiteDatabase db;
 	protected ListView hopList;
 	protected Cursor cursor;
@@ -26,10 +24,9 @@ public class HopList extends Activity {
 		super.onCreate(savedInstanceState);
 		try {
 			setContentView(R.layout.main);
-			db = (new DatabaseHelper(this)).getWritableDatabase();
-			searchText = (EditText) findViewById(R.id.searchText);
-			hopList = (ListView) findViewById(R.id.list);
-			hopList.setOnItemClickListener(new OnItemClickListener() {
+			this.db = (new DatabaseHelper(this)).getWritableDatabase();
+			this.hopList = (ListView) findViewById(R.id.list);
+			this.hopList.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
@@ -43,7 +40,7 @@ public class HopList extends Activity {
 			ListAdapter adapter = getAdaptorForQuery(
 					"SELECT _id, name, description FROM hops ORDER BY name ASC",
 					null);
-			hopList.setAdapter(adapter);
+			this.hopList.setAdapter(adapter);
 		} catch(Exception e) {
 			 Log.d("hoproll", "exception in oncreate: " + e.getLocalizedMessage());
 		}
@@ -52,34 +49,22 @@ public class HopList extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		try {
-			this.cursor.close();
-			this.db.close();
-		} catch (Exception e) {
-		}
+		DatabaseHelper.cleanupResources(this.db, this.cursor);
 	}
 
-	public void search(View view) {
-		Log.d("hoproll", "search invoked! and search string is "
-				+ searchText.getText().toString());
+	public void search(View view) {	
+		EditText searchText = (EditText) findViewById(R.id.searchText);
 		ListAdapter adapter = getAdaptorForQuery(
 				"SELECT _id, name, description FROM hops WHERE name LIKE ?",
 				new String[] { "%" + searchText.getText().toString() + "%" });
-		hopList.setAdapter(adapter);
+		this.hopList.setAdapter(adapter);
 	}
 
 	private ListAdapter getAdaptorForQuery(String queryString, String[] parameters) {
-		try {		
-			if (this.cursor !=null && !this.cursor.isClosed()) {			
-				this.cursor.close();
-			}
-		} catch (Exception e) {
-			Log.d("hoproll", "exception in so closing cursor: " + e.getLocalizedMessage());
-		}
+		DatabaseHelper.cleanupCurosr(cursor);
 		this.cursor = db.rawQuery(queryString, parameters);
 		return new SimpleCursorAdapter(this, R.layout.hop_list_item,
 				this.cursor, new String[] { "name", "description" }, new int[] {
 						R.id.hopName, R.id.description });
 	}
-
 }

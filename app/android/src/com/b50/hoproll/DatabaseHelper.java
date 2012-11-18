@@ -11,8 +11,10 @@ import org.w3c.dom.NodeList;
 import com.b50.hoproll.R;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -30,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String s;
 		try {
-			InputStream in = context.getResources().openRawResource(R.raw.sql);
+			InputStream in = this.context.getResources().openRawResource(R.raw.sql);
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document doc = builder.parse(in, null);
 			NodeList statements = doc.getElementsByTagName("statement");
@@ -39,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				db.execSQL(s);
 			}
 		} catch (Throwable t) {
-			Toast.makeText(context, t.toString(), 50000).show();
+			Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -47,6 +49,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS hops");
 		onCreate(db);
+	}
+	
+	public static void cleanupResources(SQLiteDatabase db, Cursor cursor){
+		try{ cursor.close(); } catch (Exception e) {}		
+		try{ db.close(); }catch(Exception e){}
+	}
+	
+	public static void cleanupCurosr(Cursor cursor){
+		try {		
+			if (cursor !=null && !cursor.isClosed()) {			
+				cursor.close();
+			}
+		} catch (Exception e) {
+			Log.d("hoproll", "exception in so closing cursor: " + e.getLocalizedMessage());
+		}
 	}
 
 }
