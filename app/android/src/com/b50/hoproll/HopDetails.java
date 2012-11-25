@@ -1,9 +1,13 @@
 package com.b50.hoproll;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class HopDetails extends Activity {
@@ -36,6 +40,30 @@ public class HopDetails extends Activity {
             DatabaseHelper.cleanupCurosr(cursor);
         }
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflator = this.getMenuInflater();
+		inflator.inflate(R.menu.details, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.about:
+			startActivity(new Intent(this, AboutHopRoll.class));
+			return true;
+		case R.id.notes:
+			return true;
+		case R.id.back:
+			this.finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
 	
 	@Override
 	protected void onDestroy() {
