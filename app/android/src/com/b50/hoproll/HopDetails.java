@@ -13,17 +13,18 @@ import android.widget.TextView;
 public class HopDetails extends Activity {
 	protected Cursor cursor;
 	protected SQLiteDatabase db;
+	protected long hopId;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hop_details);        
-        long  hopId = getIntent().getLongExtra("hop_id", 0);
+        this.hopId = getIntent().getLongExtra("hop_id", 0);
         this.db = (new DatabaseHelper(this)).getWritableDatabase();
         
         DatabaseHelper.cleanupCurosr(this.cursor);
         
-        cursor = db.rawQuery("SELECT * FROM hops WHERE _id = ?", new String[]{Long.valueOf(hopId).toString()});
+        cursor = db.rawQuery("SELECT * FROM hops WHERE _id = ?", new String[]{Long.valueOf(this.hopId).toString()});
         if (cursor != null){
         	cursor.moveToFirst();           
             textViewFor(R.id.hopName).setText(cursor.getString(cursor.getColumnIndex("name")));
@@ -55,6 +56,9 @@ public class HopDetails extends Activity {
 			startActivity(new Intent(this, AboutHopRoll.class));
 			return true;
 		case R.id.notes:
+			Intent intent = new Intent(this, HopNotes.class);
+			intent.putExtra("hop_id", this.hopId);
+			startActivity(intent);
 			return true;
 		case R.id.back:
 			this.finish();

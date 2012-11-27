@@ -24,6 +24,8 @@
         </activity>
         <activity android:name="AboutHopRoll" >
         </activity>
+         <activity android:name="HopNotes" >
+        </activity>
     </application>
 
 </manifest>
