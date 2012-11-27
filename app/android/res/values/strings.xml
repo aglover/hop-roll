@@ -4,4 +4,6 @@
     <string name="search">Search</string>
     <string name="hop_name_hint">Hop name</string>
     <string name="content_description">Beer with Hops</string>
+    <string name="notes_button">Add Notes</string>
+    <string name="notes_hint">Hop Notes</string>
 </resources>

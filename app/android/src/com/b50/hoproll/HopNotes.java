@@ -28,7 +28,7 @@ public class HopNotes extends HopDetails {
 
 	private void addButton(View linearLayout) {
 		Button addNotes = new Button(this);
-		addNotes.setText("Add Notes");
+		addNotes.setText(R.string.notes_button);
 		addNotes.setId(BUTTON_ID);
 		addNotes.setTextSize(16);
 		addNotes.setTextColor(Color.BLACK);
@@ -52,7 +52,7 @@ public class HopNotes extends HopDetails {
 
 	private void addEditText(View linearLayout) {
 		EditText notes = new EditText(this);
-		notes.setHint("Hop Notes");
+		notes.setHint(R.string.notes_hint);
 		notes.setInputType(InputType.TYPE_CLASS_TEXT);
 		notes.setId(NOTES_ID);
 		notes.setTextSize(16);
