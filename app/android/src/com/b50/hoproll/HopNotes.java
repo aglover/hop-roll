@@ -1,9 +1,14 @@
 package com.b50.hoproll;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -20,7 +25,6 @@ public class HopNotes extends HopDetails {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("HopRoll", "hop id is " + this.hopId);
 		View linearLayout = findViewById(R.id.details);
 		addEditText(linearLayout);
 		addButton(linearLayout);
@@ -36,8 +40,18 @@ public class HopNotes extends HopDetails {
 		addNotes.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				EditText notes = (EditText) findViewById(NOTES_ID);
-				String userNotes = notes.getText().toString();
-				Log.d("HopRoll", "notes are " + userNotes);
+				String userNotes = notes.getText().toString().trim();
+				if(userNotes != null && !userNotes.equals("")){
+					SQLiteDatabase db = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
+					ContentValues args = new ContentValues();
+				    args.put("user_notes", userNotes);
+				    db.update("hops", args, "_id" + "=" + hopId, null);				    
+				    notes.setText("");
+				    finish();
+				    Intent intent = new Intent(getApplicationContext(), HopDetails.class);
+					intent.putExtra("hop_id", hopId);
+					startActivity(intent);					
+				}				
 			}
 		});
 
@@ -62,8 +76,24 @@ public class HopNotes extends HopDetails {
 						LayoutParams.WRAP_CONTENT));
 		layout.setMargins(0, 10, 0, 10);
 		notes.setLayoutParams(layout);
-
 		((LinearLayout) linearLayout).addView(notes, layout);
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflator = this.getMenuInflater();
+		inflator.inflate(R.menu.back, menu);
+		return true;
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.back:
+			this.finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}	
 }

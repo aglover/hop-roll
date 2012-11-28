@@ -20,9 +20,12 @@ public class HopDetails extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hop_details);        
         this.hopId = getIntent().getLongExtra("hop_id", 0);
-        this.db = (new DatabaseHelper(this)).getWritableDatabase();
-        
-        DatabaseHelper.cleanupCurosr(this.cursor);
+        this.db = (new DatabaseHelper(this)).getWritableDatabase();        
+        updateView();
+	}
+
+	private void updateView() {
+		DatabaseHelper.cleanupCurosr(this.cursor);
         
         cursor = db.rawQuery("SELECT * FROM hops WHERE _id = ?", new String[]{Long.valueOf(this.hopId).toString()});
         if (cursor != null){
@@ -38,6 +41,11 @@ public class HopDetails extends Activity {
             textViewFor(R.id.styles).setText("Beer styles: " + cursor.getString(cursor.getColumnIndex("beer_styles")));
             
             textViewFor(R.id.substitutions).setText("Possible substitutions: " + cursor.getString(cursor.getColumnIndex("substitutions")));
+            
+            String userNotes = cursor.getString(cursor.getColumnIndex("user_notes"));
+            if(userNotes != null && !userNotes.equals("")){
+            	textViewFor(R.id.user_notes).setText("Your notes: " + userNotes);
+            }            
             DatabaseHelper.cleanupCurosr(cursor);
         }
 	}
@@ -47,6 +55,12 @@ public class HopDetails extends Activity {
 		MenuInflater inflator = this.getMenuInflater();
 		inflator.inflate(R.menu.details, menu);
 		return true;
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		updateView();
 	}
 
 	@Override
