@@ -75,6 +75,8 @@ public class HopDetails extends Activity {
 			startActivity(intent);
 			return true;
 		case R.id.back:
+			Intent intentList = new Intent(getApplicationContext(), HopList.class);
+			startActivity(intentList);	
 			this.finish();
 			return true;
 		default:

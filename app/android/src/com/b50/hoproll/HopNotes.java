@@ -2,6 +2,7 @@ package com.b50.hoproll;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -41,17 +42,33 @@ public class HopNotes extends HopDetails {
 			public void onClick(View v) {
 				EditText notes = (EditText) findViewById(NOTES_ID);
 				String userNotes = notes.getText().toString().trim();
-				if(userNotes != null && !userNotes.equals("")){
-					SQLiteDatabase db = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
+				if (userNotes != null && !userNotes.equals("")) {
+					DatabaseHelper.cleanupResources(db, cursor);
+					SQLiteDatabase db = new DatabaseHelper(
+							getApplicationContext()).getWritableDatabase();
+
+					Cursor cursor = db.rawQuery(
+							"SELECT user_notes FROM hops WHERE _id = ?",
+							new String[] { Long.valueOf(hopId).toString() });
+					
+					if (cursor != null) {
+						cursor.moveToFirst();
+						String existingNotes = cursor.getString(cursor.getColumnIndex("user_notes"));
+						if (existingNotes != null && !existingNotes.equals("")) {
+							userNotes = existingNotes + ", " + userNotes;
+						}
+					}
+
 					ContentValues args = new ContentValues();
-				    args.put("user_notes", userNotes);
-				    db.update("hops", args, "_id" + "=" + hopId, null);				    
-				    notes.setText("");
-				    finish();
-				    Intent intent = new Intent(getApplicationContext(), HopDetails.class);
+					args.put("user_notes", userNotes);
+					db.update("hops", args, "_id" + "=" + hopId, null);
+					notes.setText("");
+					finish();
+					Intent intent = new Intent(getApplicationContext(), HopDetails.class);
 					intent.putExtra("hop_id", hopId);
-					startActivity(intent);					
-				}				
+					startActivity(intent);
+					db.close();
+				}
 			}
 		});
 
@@ -78,7 +95,7 @@ public class HopNotes extends HopDetails {
 		notes.setLayoutParams(layout);
 		((LinearLayout) linearLayout).addView(notes, layout);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflator = this.getMenuInflater();
@@ -95,5 +112,5 @@ public class HopNotes extends HopDetails {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}	
+	}
 }
