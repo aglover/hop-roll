@@ -75,15 +75,13 @@ public class HopDetails extends Activity {
 			startActivity(intent);
 			return true;
 		case R.id.back:
-			Intent intentList = new Intent(getApplicationContext(), HopList.class);
-			startActivity(intentList);	
-			this.finish();
+			this.finish();			
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-		
+			
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

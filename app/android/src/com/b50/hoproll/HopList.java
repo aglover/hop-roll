@@ -75,7 +75,7 @@ public class HopList extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		DatabaseHelper.cleanupResources(this.db, this.cursor);
-	}
+	}	
 
 	public void search(View view) {
 		EditText searchText = (EditText) findViewById(R.id.searchText);

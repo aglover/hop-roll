@@ -1,7 +1,6 @@
 package com.b50.hoproll;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -64,9 +63,6 @@ public class HopNotes extends HopDetails {
 					db.update("hops", args, "_id" + "=" + hopId, null);
 					notes.setText("");
 					finish();
-					Intent intent = new Intent(getApplicationContext(), HopDetails.class);
-					intent.putExtra("hop_id", hopId);
-					startActivity(intent);
 					db.close();
 				}
 			}
