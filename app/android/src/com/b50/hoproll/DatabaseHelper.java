@@ -20,7 +20,7 @@ import android.widget.Toast;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public static final String DATABASE_NAME = "hops_catalog";
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	private Context context;
 
 	public DatabaseHelper(Context context) {
@@ -47,8 +47,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS hops");
-		onCreate(db);
+		//added for version #2
+		db.execSQL("INSERT INTO 'hops' VALUES(86,'Zythos','New IPA style hop blend created to optimize and exceed the aroma characteristics of the traditional, and sometimes hard to get, IPA hops.','Amarillo, Columbus, Cascade','9.5 to 12','IPAs','Bittering and Aroma', '');");
 	}
 	
 	public static void cleanupResources(SQLiteDatabase db, Cursor cursor){

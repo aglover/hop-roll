@@ -84,5 +84,6 @@
 <statement>INSERT INTO "hops" VALUES(83,'WGV (Whitbread Golding Variety) (U.K.)','Quite pleasant and hoppy, moderately intense.','U.K. Kent Golding, U.K. Progress','5 to 7','Ale','Aroma', '');</statement>
 <statement>INSERT INTO "hops" VALUES(84,'Willamette','Mild and pleasant, slightly spicy, fruity, floral, a little earthy.','U.S. Fuggle, U.S. Tettnanger, Styrian Golding','3.5 to 6','Pale ale, ESB, bitter, Englishstyle ale, porter, stout','Aroma', '');</statement>
 <statement>INSERT INTO "hops" VALUES(85,'Yakima Cluster','Used as a kettle hop for bittering.','Galena, Eroica, Cascade','6 to 8.5','IPAs, Pale Ales','Bittering', '');</statement>
+<!-- added for version 2 -->
 <statement>INSERT INTO "hops" VALUES(86,'Zythos','New IPA style hop blend created to optimize and exceed the aroma characteristics of the traditional, and sometimes hard to get, IPA hops.','Amarillo, Columbus, Cascade','9.5 to 12','IPAs','Bittering and Aroma', '');</statement>
 </sql>
